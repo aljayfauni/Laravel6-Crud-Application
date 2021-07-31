@@ -86,7 +86,7 @@ class UserController extends Controller
                 'lname'=> 'required',
                 'email'=> 'required',
                 'bday'=> 'required',
-                'profile'=> 'required|mimes:jpeg,png,jpg,bmp|max:5000',
+                'profile'=> 'required|mimes:jpeg,png,jpg,bmp,pdf|max:5000',
         ]);
 
 
@@ -208,12 +208,21 @@ class UserController extends Controller
 
                 //search functionality 
 
-                public function search_users(Request $request)
+     public function search_users(Request $request)
     
     {
         $search = $request->get('search');
-        $allusers =DB::table('users')->where('fname','like','%'.$search.'%')->paginate(5);
+        $allusers =DB::table('users')
+    
+        ->where('fname','like','%'.$search.'%')
+        ->orWhere('lname', 'like', '%' . $search . '%')
+        ->orWhere('id', 'like', '%' . $search . '%')
+        
+        
+        ->paginate(5);
        
+      //  $allusers =DB::table('users')->where('lname','like','%'.$search.'%')->paginate(5);
+      //  $allusers =DB::table('users')->where('id','like','%'.$search.'%')->paginate(5);
         return view('users.index',['allusers' => $allusers]);
       
      
