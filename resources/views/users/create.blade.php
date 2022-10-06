@@ -94,6 +94,18 @@
 
             <div class="col-xs-12 col-sm-12 col-md-12">
 
+<div class="form-group">
+
+    <strong>password:</strong>
+
+    <input type="password" name="password" class="form-control" placeholder="Password">
+
+</div>
+
+</div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12">
+
             <div class="form-group">
 
                 <strong>Birthday:</strong>

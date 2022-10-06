@@ -16,7 +16,8 @@ Route::post('login_user', 'Auth\LoginController@login_user');
 
 Route::get('logout', 'Auth\LoginController@logout'); 
 
-Route::post('users/add_user','UserController@add_user')->name('users.add_user');//routes for controller action add new user 
+Route::post('users/add_user_encrypt','UserController@add_user_encrypt')->name('users.add_user_encrypt');//routes for controller action add new user  encrypt
+Route::post('users/add_user','UserController@add_user')->name('users.add_user');//routes for controller action add new user  //decrypt
 Route::get('/search', 'UserController@search_users');//routes for controller search action search user
 
 Route::resource('users','UserController');
@@ -33,6 +34,6 @@ Route::get('/', 'UserController@index');//routes for controller search action se
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

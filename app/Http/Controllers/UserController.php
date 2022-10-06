@@ -6,6 +6,8 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\images;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 
 {
@@ -81,28 +83,21 @@ class UserController extends Controller
        //                 ->with('success','User created successfully.');
     //}
 
-
     public function add_user(Request $request)
     {
         //
+           
+        
+
         $request->validate([
 
                 'fname'=> 'required',
                 'lname'=> 'required',
                 'email'=> 'required',
+                'password'=> 'required',
                 'bday'=> 'required',
                 'profile'=> 'required|mimes:jpeg,png,jpg,bmp,pdf|max:5000',
         ]);
-
-
-      
-      //  if ($files = $request->file('fileUpload')) {
-        //    $destinationPath = 'public/images/'; // upload path
-        //    $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
-         //   $files->move($destinationPath, $profileImage);
-         //   $insert['profile'] = "$profileImage";
-       //  }
-
          
         // if validation success
         if($file   =   $request->file('profile')) {
@@ -115,30 +110,66 @@ class UserController extends Controller
                    
                     // save file name in the database
                  
-                   
-         User::create([
+     
+              
+               }  
 
-                
-            'fname'=> $request['fname'],
-            'lname'=> $request['lname'],
-            'email'=> $request['email'],
-            'bday'=> $request['bday'],
-            'profile'=> 'images/'.$name
-         
-           ]);
+            //    $password = Hash::make($request->password);
+            //    $fname_encrypted = Crypt::encryptString($request->fname); 
+            //    $lname_encrypted = Crypt::encryptString($request->lname); 
+            //    $email_encrypted = Crypt::encryptString($request->email); 
+            //    $password_encrypted = Crypt::encryptString($password); 
+            //    $bday_encrypted = Crypt::encryptString($request->bday); 
+            //    $profile_encrypted = Crypt::encryptString($name);
+
+
+                $password = Hash::make($request->password);
+            //    $fname_encrypted = Crypt::encryptString($request->fname); 
+            //    $lname_encrypted = Crypt::encryptString($request->lname); 
+            //    $email_encrypted = Crypt::encryptString($request->email); 
+            //    $password_encrypted = Crypt::encryptString($password); 
+            //    $bday_encrypted = Crypt::encryptString($request->bday); 
+            //    $profile_encrypted = Crypt::encryptString($name);
+
         
-        //User::create($request->all());
+            $insert_data =  User::create([
+                'fname'=> $request->fname,
+                'lname'=> $request->lname,
+                'email'=> $request->email,
+                'password'=> $password,
+                'bday'=> $request->bday,
+                'profile'=> 'images/'.$name
 
-   
-
-  
-    }
-    return redirect()->route('users.index')
+        //      $insert_data =  User::create([
+        //     'fname'=> Crypt::decryptString($fname_encrypted),
+        //     'lname'=> Crypt::decryptString($lname_encrypted),
+        //     'email'=> Crypt::decryptString($email_encrypted),
+        //     'password'=> Crypt::decryptString($password_encrypted),
+        //     'bday'=> Crypt::decryptString($bday_encrypted),
+        //     'profile'=> 'images/'.Crypt::decryptString($profile_encrypted)
+         
+          ]);
+        
+        // User::create($request->all());
+        //     $datas = [
+        //         'fname' =>$fname_encrypted,
+        //         'lname'=> $request['lname'],
+        //         'email'=> $request['email'],
+        //         'bday'=> $request['bday'],
+        //         'profile'=> 'images/'.$name
+        //     ];
+         
+     
+      //return $datas;
+        }
+       return redirect()->route('users.index')
 
   ->with('success','User created successfully.');
-  }
+    }
+
+ 
   
-}
+
 
     /**
      * Display the specified resource.
