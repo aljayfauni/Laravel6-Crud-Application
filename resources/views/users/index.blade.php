@@ -6,10 +6,22 @@
 
 <div class="row">
     <div class="col-lg-12 margin-tb">
-        <div class="pull-left">
-        <h2>Laravel 6 crud application </h2>
+        <div class="float-left">
+        <form action="/search" method="get">
+
+@method('GET')
+@csrf
+
+<div class="input-group align-center col-m-6 " >
+
+<input type="search" name="search" placeholder="Search..." class="form-control col-sm-12 align-center" >
+&nbsp;
+<input type="submit" class="btn btn-primary btn-m align-left" value="Search"/>
+</div>
+
+</form>
     </div>
-        <div class="pull-right">
+        <div class="float-right">
 
             <a class="btn btn-success" href="{{ route('users.create') }}"> Create New Product</a>
 
@@ -24,18 +36,7 @@
         <p>{{$message}}</p>
     </div>    
 @endif
-<form action="/search" method="get">
 
-@method('GET')
-@csrf
-
-<div class="input-group align-center col-m-6 " >
-
-<input type="search" name="search" placeholder="Search..." class="form-control col-sm-3 align-center" >
-<input type="submit" class="btn btn-primary btn-m align-left" value="Search"/>
-</div>
-
-</form>
 <br>
     <table class="table table-bordered">
         <tr>

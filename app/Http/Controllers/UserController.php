@@ -13,7 +13,14 @@ class UserController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * 
+     * 
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         //
@@ -78,8 +85,6 @@ class UserController extends Controller
     public function add_user(Request $request)
     {
         //
-      
-
         $request->validate([
 
                 'fname'=> 'required',

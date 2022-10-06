@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Session;
 
 class LoginController extends Controller
 {
@@ -26,6 +28,31 @@ class LoginController extends Controller
      *
      * @var string
      */
+    public function index()
+    {
+        return view('Auth.login');
+    }
+    public function login_user(Request $request)
+    {
+        request()->validate([
+        'email' => 'required',
+        'password' => 'required',
+        ]);
+ 
+        $credentials = $request->only('email', 'password');
+        if (Auth::attempt($credentials)) {
+            // Authentication passed...
+            return redirect()->intended('/');
+        }
+        return Redirect::to("login")->withSuccess('Oppes! You have entered invalid credentials');
+    }
+
+    public function logout() {
+        Session::flush();
+        Auth::logout();
+        return Redirect('login');
+    }
+
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
