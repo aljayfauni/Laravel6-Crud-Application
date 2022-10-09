@@ -3,7 +3,12 @@
  
 
 @section('content')
+@if($message = Session::get('success'))
 
+    <div class="alert alert-success">
+        <p>{{$message}}</p>
+    </div>    
+@endif
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="float-left">
@@ -30,12 +35,7 @@
     </div>
 </div>
 
-@if($message = Session::get('success'))
 
-    <div class="alert alert-success">
-        <p>{{$message}}</p>
-    </div>    
-@endif
 
 <br>
     <table class="table table-bordered">
@@ -91,7 +91,7 @@
 
 
 
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-danger delete_confirm" >Delete</button>
 
                 </form>
 

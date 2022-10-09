@@ -60,6 +60,47 @@ $(function () {
                 }
               });//end of swal
             });
+
+
+            //delete
+             
+     $('.delete_confirm').click(function(event) {
+      var form =  $(this).closest("form");
+      var name = $(this).data("name");
+      event.preventDefault();
+      Swal.fire({
+          title: `Are you sure you want to delete this record?`,
+          text: "",
+          icon: "warning",
+          showCancelButton: false,
+          showDenyButton: true,
+          confirmButtonText: 'Yes',
+          denyButtonText: 'Cancel',
+          dangerMode: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          form.submit();
+          Swal.fire(
+            'Deleted!',
+            'Record has been deleted.',
+            'successfully'
+          )
+
+        }
+        else if (result.isDenied) {
+          result.dismiss === Swal.DismissReason.cancel
+          return false;
+        }
+      });
+  });
+  setTimeout(function() {
+
+    // Do something after 3 seconds
+    // This can be direct code, or call to some other function
+
+$('.alert').hide();
+
+   }, 3000);
     
           });
     
