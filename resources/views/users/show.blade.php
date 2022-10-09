@@ -78,10 +78,10 @@
 
 <div class="form-group">
 
-    <strong>profile picture:</strong>
+    <strong >profile picture:</strong>
 
-    <img src='../{{ $user->profile }}' style="width:100px;">
-
+    <img src='../{{ $user->profile }}' style="width:100px;" class='img-profile'  >
+   
 </div>
 
 </div>

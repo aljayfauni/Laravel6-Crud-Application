@@ -101,8 +101,26 @@ $(function () {
 $('.alert').hide();
 
    }, 3000);
+
+   //show image profile
+
+$('.img-profile').click(function(event) {
+
+  var profile_src = $('.img-profile').attr('src');
+  var imgfile= `<img src='${profile_src}' style='width:300px;height:300px;' id='img_profile'>`;
+  console.log(imgfile);
+  Swal.fire({
+    title: 'Profile',
+    text: '',
+    html: `<img src='${profile_src}' style='width:100%;' id='img_profile'>`,
+    imageAlt: 'Profile',
+  })
+ 
+
+});
+
     
           });
-    
+
    
     
