@@ -9,7 +9,7 @@ use App\images;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;//Use at top of the page
-
+use RealRashid\SweetAlert\Facades\Alert;
 class UserController extends Controller
 
 {
