@@ -48,7 +48,8 @@
 
    
 
-<form action="{{ route('users.add_user') }}" method="POST" enctype="multipart/form-data">
+<form  id="add_form"  enctype="multipart/form-data">
+<!-- <form action="{{ route('users.add_user') }}" method="POST" enctype="multipart/form-data"> -->
 
     @csrf
 
@@ -130,7 +131,7 @@
 
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
 
-                <button type="submit" class="btn btn-primary">Submit</button>
+        <input type="submit" name="action_button" id="submit_btn" class="btn btn-warning" />
 
         </div>
 

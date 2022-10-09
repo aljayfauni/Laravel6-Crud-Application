@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use App\images;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;//Use at top of the page
+
 class UserController extends Controller
 
 {
@@ -22,21 +24,17 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        
     }
     public function index()
     {
         //
+       
     
        // $allusers = User::latest()->orderBy('created_at','')->paginate(5);
        $allusers = User::orderBy('id')->paginate(5);
         return view('users.index',compact('allusers'))
                 ->with('i',(request()->input('page',1)-1)* 5);
-
-
-
-
-
-                
 
     }
 
@@ -86,19 +84,17 @@ class UserController extends Controller
     public function add_user(Request $request)
     {
         //
-           
-        
-
-        $request->validate([
+            $request->validate([
 
                 'fname'=> 'required',
                 'lname'=> 'required',
                 'email'=> 'required',
                 'password'=> 'required',
                 'bday'=> 'required',
-                'profile'=> 'required|mimes:jpeg,png,jpg,bmp,pdf|max:5000',
+                //'profile'=> 'required',
+                'profile'=> 'required|mimes:jpeg,png,jpg,bmp,pdf|max:9000',
         ]);
-         
+           
         // if validation success
         if($file   =   $request->file('profile')) {
 
@@ -109,9 +105,7 @@ class UserController extends Controller
                 if($file->move($target_path, $name)) {
                    
                     // save file name in the database
-                 
-     
-              
+
                }  
 
             //    $password = Hash::make($request->password);
@@ -131,14 +125,23 @@ class UserController extends Controller
             //    $bday_encrypted = Crypt::encryptString($request->bday); 
             //    $profile_encrypted = Crypt::encryptString($name);
 
-        
-            $insert_data =  User::create([
+          $insert=  DB::table('users')->insert([
                 'fname'=> $request->fname,
                 'lname'=> $request->lname,
                 'email'=> $request->email,
                 'password'=> $password,
                 'bday'=> $request->bday,
                 'profile'=> 'images/'.$name
+            ]);
+          
+        // $insert=  User::insert([
+        //         'fname'=> $request->fname,
+        //         'lname'=> $request->lname,
+        //         'email'=> $request->email,
+        //         'password'=> $password,
+        //         'bday'=> $request->bday,
+        //         'profile'=> 'images/'.$name
+        //     ]);
 
         //      $insert_data =  User::create([
         //     'fname'=> Crypt::decryptString($fname_encrypted),
@@ -148,7 +151,7 @@ class UserController extends Controller
         //     'bday'=> Crypt::decryptString($bday_encrypted),
         //     'profile'=> 'images/'.Crypt::decryptString($profile_encrypted)
          
-          ]);
+          //]);
         
         // User::create($request->all());
         //     $datas = [
@@ -161,10 +164,14 @@ class UserController extends Controller
          
      
       //return $datas;
-        }
-       return redirect()->route('users.index')
 
-  ->with('success','User created successfully.');
+        }
+      // return redirect()->route('users.index')
+    //  dd($request->all());
+  
+       return response()->json('Success');
+
+  //->with('success','User created successfully.');
     }
 
  
