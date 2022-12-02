@@ -44,9 +44,11 @@ $(function () {
                         title: response,
                         showDenyButton: false,
                         showCancelButton: false,
-                        confirmButtonText: 'Yes'
+                        confirmButtonText: 'OK'
                     }).then((result) => {
+                      if (result.isConfirmed) {
                       window.location.href ="http://127.0.0.1:8000/users";
+                      }
                     });
                 
                    },
